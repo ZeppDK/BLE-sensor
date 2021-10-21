@@ -1,0 +1,68 @@
+esphome:
+  name: ble-dims2
+  platform: ESP32
+  board: nodemcu-32s
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+  password: "xxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+wifi:
+  ssid: "netværksnavn"
+  password: "secret password"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Ble-Dims Fallback Hotspot"
+    password: "GeekNetwork"
+
+captive_portal:
+
+mqtt:
+  broker: 10.14.12.131
+  username: Brugernavn
+  password: Password
+  
+esp32_ble_tracker:
+ scan_parameters:
+    window: 759ms
+    interval: 760ms
+    active: true
+
+binary_sensor:
+  # Presence based on BLE Service UUID
+  - platform: ble_presence
+    service_uuid: 'FEED'
+    name: "Tracker UUID 1"
+  - platform: ble_presence
+    service_uuid: 'FEEC'
+    name: "Tracker UUID 2"
+  - platform: ble_presence
+    service_uuid: 'FD84'
+    name: "Tracker UUID 3"
+  - platform: ble_presence
+    mac_address: XX:XX:XX:XX:XX:XX
+    name: "Tracker1"
+  - platform: ble_presence
+    mac_address: XX:XX:XX:XX:XX:XX
+    name: "Tracker2"
+  - platform: ble_presence
+    mac_address: XX:XX:XX:XX:XX:XX
+    name: "Tracker3"
+    
+sensor:
+  - platform: ble_rssi
+    mac_address: XX:XX:XX:XX:XX:XX
+    name: "Tracker1 RSSI value"
+  - platform: ble_rssi
+    mac_address: XX:XX:XX:XX:XX:XX
+    name: "Tracker2 RSSI value"
+  - platform: ble_rssi
+    mac_address: XX:XX:XX:XX:XX:XX
+    name: "Tracker3 RSSI value"
+    
